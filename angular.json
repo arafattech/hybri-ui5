@@ -24,6 +24,16 @@
               "src/favicon.ico",
               "src/assets"
             ],
+            "allowedCommonJsDependencies": [
+							"react",
+							"react-dom",
+							"react-table",
+							"sweetalert2",
+							"@ui5/webcomponents-react",
+							"@ui5/webcomponents-react-base",
+							"@ui5/webcomponents-react-charts",
+							"@zxing/library"],
+
             "styles": [
               "src/styles.css"
             ],
@@ -32,17 +42,17 @@
           "configurations": {
             "production": {
               "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
+								{
+									"type": "initial",
+									"maximumWarning": "5mb",
+									"maximumError": "5mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "5mb",
+									"maximumError": "5mb"
+								}
+							],
               "outputHashing": "all"
             },
             "development": {

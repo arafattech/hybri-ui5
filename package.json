@@ -46,5 +46,9 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.4.2"
+  },
+  "overrides": {
+    "@ui5/webcomponents-react": "2.0.0-rc.0",
+    "@ui5/webcomponents-react-base": "2.0.0-rc.0"
   }
 }
