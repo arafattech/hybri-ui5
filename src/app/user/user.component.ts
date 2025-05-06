@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import "@ui5/webcomponents/dist/Input.js";
 @Component({
   selector: 'app-user',
   standalone: true,
