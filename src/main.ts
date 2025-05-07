@@ -10,7 +10,6 @@ import "@ui5/webcomponents-icons/dist/AllIcons.js";
 import { AppComponent } from './app/app.component';
 import { appConfig } from './app/app.config';
 
-// import "@ui5/webcomponents-localization/dist/locale-data/en.js";
 
 import "@ui5/webcomponents/dist/Button.js";
 
