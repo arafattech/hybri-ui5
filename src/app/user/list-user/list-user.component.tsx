@@ -1,3 +1,4 @@
+
 import { CommonModule, DatePipe } from "@angular/common";
 import {
   ChangeDetectorRef,
@@ -11,18 +12,18 @@ import {
 import { FormsModule } from "@angular/forms";
 import { Button, TextAlign } from "@ui5/webcomponents-react";
 import React from "react";
-import { AnalyticalTableComponent } from "../components/analytical-table/react-table";
-import { ServiceService } from "../services/service.service";
-import { User } from "../shared/Model/user";
+import { AnalyticalTableComponent } from "../../components/analytical-table/react-table";
+import { ServiceService } from "../../services/service.service";
+import { User } from "../../shared/Model/user";
 @Component({
-  selector: "app-user",
+  selector: 'app-list-user',
   standalone: true,
   imports: [CommonModule, FormsModule, AnalyticalTableComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  templateUrl: "./user.component.html",
-  styleUrl: "./user.component.css",
+  templateUrl: './list-user.component.html',
+  styleUrl: './list-user.component.css'
 })
-export class UserComponent implements OnInit {
+export class ListUserComponent  implements OnInit {
   @Input() model: any = null;
   @Output() refreshTable: EventEmitter<void> = new EventEmitter<void>();
   @Output() IsOpenToastAlert = new EventEmitter<void>();
@@ -235,3 +236,5 @@ export class UserComponent implements OnInit {
     },
   ];
 }
+
+

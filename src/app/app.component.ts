@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { UserComponent } from "./user/user.component";
+import { ListUserComponent } from './user/list-user/list-user.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ UserComponent],
+  imports: [UserComponent,ListUserComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'hybri-ui5';

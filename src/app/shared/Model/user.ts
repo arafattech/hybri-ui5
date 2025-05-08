@@ -42,8 +42,8 @@ export class User implements Deserializable {
     this.phone = input.phone ?? this.phone;
     this.created_at = input.created_at ?? this.created_at;
     this.updated_at = input.updated_at ?? this.updated_at;
-    this.is_active =
-    input.is_active !== undefined ? input.is_active : this.is_active;
+    this.is_active = true;
+
     return this;
   }
 

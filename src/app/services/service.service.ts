@@ -1,8 +1,7 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { environment } from "../environment/environment";
-
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from '../environment/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +33,10 @@ export class ServiceService {
     const urlPrefix = isLodata ? this.lodataPrefix : this.apiPrefix;
     const modifiedUrl = `${urlPrefix}/${url}`;
     return this.http.get<T>(modifiedUrl, { headers, params });
+    // return this.http.get<T>('http://127.0.0.1:8000/odata/Users', {
+    //   params,
+    //   headers,
+    // });
   }
 
   /**

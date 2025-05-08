@@ -53,7 +53,6 @@ export class AnalyticalTableComponent
   private root: ReturnType<typeof createRoot> | null = null;
   selectedRowData: any = null;
 
-  @Input() CustomData: any = [];
   @Input() model: any;
   @Input() headerTitle: string = "";
   @Input() secondaryTitle: string = "";
@@ -106,7 +105,6 @@ export class AnalyticalTableComponent
   @Input() refreshTriggerLoading: EventEmitter<void> = new EventEmitter<void>();
   @Input() renderTriggerLoading: EventEmitter<void> = new EventEmitter<void>();
 
-  customTableColumns: any[] = [];
   tableDataCount: number = 0;
   allColumns: string[] = [];
   selectedColumns: string[] = [];
@@ -147,7 +145,6 @@ export class AnalyticalTableComponent
   }
 
   ngOnInit(): void {
-    this.customTableColumn();
     this.initializeColumns();
     if (this.isStatic) {
       this.staticData.subscribe((data: any) => {
@@ -253,18 +250,7 @@ export class AnalyticalTableComponent
     }
     this.render();
   }
-  customTableColumn() {
-    this.customTableColumns = this.tableColumn.map((column: any) => {
-      if (column.accessor === "created_at") {
-        return {
-          ...column,
-          Cell: ({ value }: any) =>
-            value ? this.datePipe.transform(value, "dd/MM/yyyy") : "N/A",
-        };
-      }
-      return column;
-    });
-  }
+
   ngOnDestroy() {
     if (this.root) {
       this.root.unmount();
@@ -473,75 +459,36 @@ export class AnalyticalTableComponent
   openExternalLink(): void {
     this.router.navigate([this.externalLinkUrl]);
   }
-  fetchData(offset: number, limit: number, status: string) {
-    console.log(" URL:", status, "Odata " + this.isOdata);
-    this.loading = true;
-    let apiUrl = "";
-    console.log("Fetching data...", this.apiUrl);
-    if (this.isOdata) {
-      if (this.status !== "") {
-        apiUrl = `${this.apiUrl}&$filter=(${
-          this.filterQuery ? this.filterQuery + " and " : ""
-        }is_active eq ${status}) &$skip=${offset}&$top=${limit}&$orderby=created_at desc &$count=true`;
-      } else {
-        apiUrl = `${this.apiUrl}&$filter=(${
-          this.filterQuery
-            ? this.filterQuery
-            : "is_active eq true or is_active eq false"
-        }) &$skip=${offset}&$top=${limit}&$orderby=created_at desc &$count=true`;
-      }
-      console.log("odata URL:", status, apiUrl);
-    } else {
-      if (this.paramUrl !== "") {
-        apiUrl = `${this.apiUrl}/${limit}/${offset}?${this.paramUrl}`;
-      } else {
-        apiUrl = `${this.apiUrl}/${limit}/${offset}?$status=is_active eq ${status}`;
-        console.log("API URL:", status, apiUrl);
-      }
-    }
-    console.log("API URL:", status, apiUrl);
-    return this.commonService.get(apiUrl, this.isOdata);
-  }
 
   loadInitialData() {
     this.loading = true;
     this.render();
+    if (!this.isInitialLoadData) {
+      return;
+    }
     this.fetchData(this.offset, this.limit, this.status).subscribe({
       next: (response: any) => {
-        console.log("Raw response:", response); // Log the raw response
-        this.data = [];
-        this.dataList = [];
-
-        let sourceData: any[] = [];
         if (this.isSyncPermission) {
-          sourceData = Array.isArray(response.syncPermissions)
-            ? response.syncPermissions
-            : [];
+          this.data = [...this.data, ...response.syncPermissions];
         } else {
-          sourceData = Array.isArray(response.value) ? response.value : [];
+          this.data = [...this.data, ...response.value];
         }
-
-        if (sourceData.length > 0) {
-          this.data = [...this.data, ...sourceData];
-          this.dataList = this.data.map((item: any) =>
+        if (Array.isArray(this.data)) {
+          const data = this.data.map((item: any) =>
             new this.model().deserialize(item)
           );
-          this.tableDataCount = response["@count"] || 0;
-          this.offset += this.limit;
+          this.dataList = data;
         } else {
-          console.warn("No valid data found in response:", response);
-          this.tableDataCount = 0;
+          console.error("Expected an array, but got:", response);
         }
-
+        this.tableDataCount = response["@count"] || 0;
+        this.offset += this.limit;
         this.loading = false;
         this.onResponseData.emit(this.data);
         this.render();
       },
       error: (error: any) => {
         console.error("Load initial data error:", error);
-        if (error.status === 200) {
-          console.error("Response body:", error.error);
-        }
         this.loading = false;
         this.render();
       },
@@ -577,6 +524,31 @@ export class AnalyticalTableComponent
         this.render();
       },
     });
+  }
+
+  fetchData(offset: number, limit: number, status: string) {
+    this.loading = true;
+    let apiUrl = "";
+    if (this.isOdata) {
+      if (this.status !== "") {
+        apiUrl = `${this.apiUrl}&$filter=(${
+          this.filterQuery ? this.filterQuery + " and " : ""
+        }is_active eq ${status}) &$skip=${offset}&$top=${limit}&$orderby=created_at desc &$count=true`;
+      } else {
+        apiUrl = `${this.apiUrl}&$filter=(${
+          this.filterQuery
+            ? this.filterQuery
+            : "is_active eq true or is_active eq false"
+        }) &$skip=${offset}&$top=${limit}&$orderby=created_at desc &$count=true`;
+      }
+    } else {
+      if (this.paramUrl !== "") {
+        apiUrl = `${this.apiUrl}/${limit}/${offset}?${this.paramUrl}`;
+      } else {
+        apiUrl = `${this.apiUrl}/${limit}/${offset}?$status=is_active eq ${status}`;
+      }
+    }
+    return this.commonService.get(apiUrl, this.isOdata);
   }
 
   handleSearch(event: any) {
@@ -798,8 +770,7 @@ export class AnalyticalTableComponent
                   minWidth: "100%",
                   backgroundColor: "white",
                 }}
-                //   data={this.isStatic ? this.staticDataList : this.dataList}
-                data={this.CustomData}
+                data={this.isStatic ? this.staticDataList : this.dataList}
                 columns={filteredColumns}
                 renderRowSubComponent={this.renderRowSubComponent}
                 subComponentsBehavior={
