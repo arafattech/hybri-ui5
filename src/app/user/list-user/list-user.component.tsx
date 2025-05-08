@@ -1,33 +1,31 @@
-
 import { CommonModule, DatePipe } from "@angular/common";
 import {
   ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   EventEmitter,
-  Input,
   OnInit,
   Output,
 } from "@angular/core";
+// import { AnalyticalTableComponent } from "../components/analytical-table/react-table";
 import { FormsModule } from "@angular/forms";
 import { Button, TextAlign } from "@ui5/webcomponents-react";
 import React from "react";
 import { AnalyticalTableComponent } from "../../components/analytical-table/react-table";
 import { ServiceService } from "../../services/service.service";
 import { User } from "../../shared/Model/user";
+import { AddUserComponent } from "../add-user/add-user.component";
 @Component({
-  selector: 'app-list-user',
+  selector: "app-list-user",
   standalone: true,
-  imports: [CommonModule, FormsModule, AnalyticalTableComponent],
+  imports: [CommonModule, FormsModule, AnalyticalTableComponent, AddUserComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  templateUrl: './list-user.component.html',
-  styleUrl: './list-user.component.css'
+  templateUrl: "./list-user.component.html",
+  styleUrl: "./list-user.component.css",
 })
-export class ListUserComponent  implements OnInit {
-  @Input() model: any = null;
+export class ListUserComponent implements OnInit {
   @Output() refreshTable: EventEmitter<void> = new EventEmitter<void>();
   @Output() IsOpenToastAlert = new EventEmitter<void>();
-
   ToastType: string = "";
   totalFaqs: number = 0;
   itemsPerPage: number;
@@ -59,7 +57,9 @@ export class ListUserComponent  implements OnInit {
     this.odata = this.commandService.odata;
     this.Title = "User";
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  
+  }
 
   tableColum() {
     const columns = [
@@ -182,7 +182,7 @@ export class ListUserComponent  implements OnInit {
   deleteUserConfirm() {
     this.isDeleteLoading = true;
     const id = this.selectedUserId;
-    this.commandService.delete(`user/${id}`, this.odata).subscribe({
+    this.commandService.delete(`users/${id}`, this.odata).subscribe({
       next: (response: any) => {
         this.isSuccess = true;
         this.isDeleteLoading = false;
@@ -236,5 +236,3 @@ export class ListUserComponent  implements OnInit {
     },
   ];
 }
-
-

@@ -430,6 +430,7 @@ export class AnalyticalTableComponent
   openAddModal(): void {
     this.isInsertDataChange.emit(true);
     this.render();
+    console.log("openAddModal called");
   }
 
   handleRowSelect(event: any): void {
