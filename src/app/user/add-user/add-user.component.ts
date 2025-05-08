@@ -85,9 +85,9 @@ export class AddUserComponent implements OnInit {
 
     const data = {
       name: this.name,
-      email: this.gmail,      // If gmail is user's email
-      phone: this.phone,      // Make sure to bind this.phone from your form
-      is_active: this.isActive
+      email: this.gmail, // If gmail is user's email
+      phone: this.phone, // Make sure to bind this.phone from your form
+      is_active: this.isActive,
     };
     console.log('data', data);
 
@@ -102,7 +102,7 @@ export class AddUserComponent implements OnInit {
           this.IsOpenToastAlert.emit();
         }, 1000);
         this.resetForm();
-        // this.closeDialog();
+        this.closeDialog();
       },
       (error: any) => {
         this.loading = false;
@@ -115,12 +115,13 @@ export class AddUserComponent implements OnInit {
     this.errorMassage = '';
     this.name = '';
     this.gmail = '';
+    this.phone = '';
   }
   closeDialog() {
     this.isOpen = false;
     this.close.emit();
   }
-
+ 
   resetForm() {
     this.gmail = '';
     this.name = '';

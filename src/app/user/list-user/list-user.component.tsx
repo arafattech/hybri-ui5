@@ -15,10 +15,17 @@ import { AnalyticalTableComponent } from "../../components/analytical-table/reac
 import { ServiceService } from "../../services/service.service";
 import { User } from "../../shared/Model/user";
 import { AddUserComponent } from "../add-user/add-user.component";
+import { UserDetailsComponent } from "../user-details/user-details.component";
 @Component({
   selector: "app-list-user",
   standalone: true,
-  imports: [CommonModule, FormsModule, AnalyticalTableComponent, AddUserComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    AnalyticalTableComponent,
+    AddUserComponent,
+    UserDetailsComponent,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: "./list-user.component.html",
   styleUrl: "./list-user.component.css",
@@ -57,9 +64,7 @@ export class ListUserComponent implements OnInit {
     this.odata = this.commandService.odata;
     this.Title = "User";
   }
-  ngOnInit(): void {
-  
-  }
+  ngOnInit(): void {}
 
   tableColum() {
     const columns = [
@@ -128,7 +133,7 @@ export class ListUserComponent implements OnInit {
               icon="information"
               design="Transparent"
               onClick={() => {
-                this.JobsDetails(row.original);
+                this.UserDetails(row.original);
               }}
             ></Button>
 
@@ -165,10 +170,11 @@ export class ListUserComponent implements OnInit {
     this.cdr.detectChanges();
   }
   //user details
-  JobsDetails(original: any): void {
+  UserDetails(original: any): void {
     this.selectedUserId = original.id;
     this.selectedUserData = original;
     this.isDetails = true;
+    console.log(this.selectedUserData);
     this.cdr.detectChanges();
   }
   //Delete User
@@ -182,8 +188,9 @@ export class ListUserComponent implements OnInit {
   deleteUserConfirm() {
     this.isDeleteLoading = true;
     const id = this.selectedUserId;
-    this.commandService.delete(`users/${id}`, this.odata).subscribe({
+    this.commandService.delete(`Users/${id}`, this.odata).subscribe({
       next: (response: any) => {
+        console.log(response);
         this.isSuccess = true;
         this.isDeleteLoading = false;
         this.isDeleteOpen = false;
@@ -209,6 +216,13 @@ export class ListUserComponent implements OnInit {
     this.refreshTable.emit();
     // this.loadJobs();
   }
+
+  closeUserDetailsModal() {
+    this.isDetails = false;
+    this.selectedUserId = null;
+    this.selectedUserData = null;
+  }
+
   customData = [
     {
       name: "John Doe",
