@@ -52,6 +52,13 @@
     [ToastType]="ToastType"
   ></app-toast-message> -->
 
+<app-user-details
+  [userId]="selectedUserId"
+  [UserData]="selectedUserData"
+  [isOpen]="isDetails"
+  (close)="closeUserDetailsModal()"
+></app-user-details>
+
 <ui5-dialog [open]="isDeleteOpen" header-text="Warning" state="Critical">
   <p *ngIf="!isDeleteLoading">Are you sure you want to delete this data?</p>
   <div *ngIf="isDeleteLoading">

@@ -36,7 +36,7 @@
           [(ngModel)]="gmail"
           placeholder="Enter your E-mail"
           required
-          type="gmail"
+          type="Email"
         ></ui5-textarea>
         <ui5-label show-colon required>Phone</ui5-label>
         <ui5-textarea
@@ -44,7 +44,7 @@
           [(ngModel)]="phone"
           placeholder="Enter your Phone"
           required
-          type="phone" 
+          type="phone"
         ></ui5-textarea>
       </div>
     </div>
@@ -57,12 +57,7 @@
       text="Submit"
     >
     </ui5-toolbar-button>
-    <!-- <ui5-toolbar-button
-    design="Emphasized"
-    [disabled]="loading || !question || !answer"
-    (click)="insertData()"
-    text="Submit">
-      </ui5-toolbar-button> -->
+    
 
     <ui5-toolbar-button
       design="Transparent"
