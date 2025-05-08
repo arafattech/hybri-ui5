@@ -1,6 +1,7 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import {
+  ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   EventEmitter,
@@ -9,7 +10,10 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
+import {
+  AngularEditorConfig,
+  AngularEditorModule,
+} from '@kolkov/angular-editor';
 import { LabelComponent, TextAreaComponent } from '@ui5/webcomponents-ngx';
 import { ServiceService } from '../../services/service.service';
 import { User } from '../../shared/Model/user';
@@ -47,7 +51,7 @@ export class AddUserComponent implements OnInit {
   isActive: boolean = true;
   Userlist: User = new User().deserialize({});
 
-   editorConfig: AngularEditorConfig = {
+  editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
     height: '20rem',
@@ -60,7 +64,8 @@ export class AddUserComponent implements OnInit {
 
   constructor(
     private commandService: ServiceService,
-    private datepipe: DatePipe
+    private datepipe: DatePipe,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {}
@@ -79,17 +84,17 @@ export class AddUserComponent implements OnInit {
     }
 
     const data = {
-      title: this.name,
-      header_gmail: this.gmail,
-   
-      gmail_main: this.htmlContent,
-      is_active: this.isActive,
+      name: this.name,
+      email: this.gmail,      // If gmail is user's email
+      phone: this.phone,      // Make sure to bind this.phone from your form
+      is_active: this.isActive
     };
+    console.log('data', data);
 
     this.loading = true;
     this.commandService.post('Users', data).subscribe(
       (response: any) => {
-        console.log(response);
+        console.log('response', response);
         this.loading = false;
         this.isSuccess = true;
         this.ToastType = 'add';

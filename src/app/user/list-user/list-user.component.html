@@ -28,6 +28,7 @@
     [selectionMode]="'Single'"
     [rowSelectionBehavior]="'RowOnly'"
     [refreshTrigger]="refreshTable"
+    (isInsertDataChange)="handleInsertData($event)"
   ></react-analytical-table>
 </div>
 <app-add-user [isOpen]="isInsert" (close)="closeAddUserModel()"></app-add-user>

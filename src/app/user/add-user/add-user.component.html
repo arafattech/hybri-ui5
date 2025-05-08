@@ -19,7 +19,7 @@
     <div class="row">
       <div class="col-12">
         <div class="d-flex align-items-center">
-          <span> Active: </span>
+          <!-- <span> Active: </span> -->
           <ui5-switch checked (click)="toggleAction($event)"></ui5-switch>
         </div>
         <ui5-label show-colon required>Name</ui5-label>
@@ -38,11 +38,14 @@
           required
           type="gmail"
         ></ui5-textarea>
-        <angular-editor
-          [placeholder]="placeholder"
-          [config]="editorConfig"
-          [(ngModel)]="htmlContent"
-        ></angular-editor>
+        <ui5-label show-colon required>Phone</ui5-label>
+        <ui5-textarea
+          class="textArea"
+          [(ngModel)]="phone"
+          placeholder="Enter your Phone"
+          required
+          type="phone" 
+        ></ui5-textarea>
       </div>
     </div>
   </section>
