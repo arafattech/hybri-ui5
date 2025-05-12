@@ -15,9 +15,76 @@
   <ui5-message-strip class="w-100 mt-3" design="Critical" *ngIf="errorMassage">
     <ui5-icon name="alert" slot="icon"></ui5-icon> {{ errorMassage }}
   </ui5-message-strip>
-  <section>
+  <section class="p-6 bg-gray-100 rounded-md">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <!-- Active Switch -->
+      <div class="col-span-2 flex items-center space-x-2">
+        <!-- <span class="font-medium">Active:</span> -->
+        <ui5-switch checked (click)="toggleAction($event)"></ui5-switch>
+      </div>
+
+      <!-- First Name -->
+      <div>
+        <ui5-label show-colon required> First Name</ui5-label>
+        <ui5-input
+          class="w-full"
+          [(ngModel)]="User.first_name"
+          placeholder="Enter your First Name"
+          required
+        ></ui5-input>
+      </div>
+
+      <!-- Last Name -->
+      <div>
+        <ui5-label show-colon required> Last Name</ui5-label>
+        <ui5-input
+          class="w-full"
+          [(ngModel)]="User.last_name"
+          placeholder="Enter your Last Name"
+          required
+        ></ui5-input>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <ui5-label show-colon required> Email</ui5-label>
+        <ui5-input
+          class="w-full"
+          [(ngModel)]="User.email"
+          placeholder="Enter your Email"
+          required
+          type="Email"
+        ></ui5-input>
+      </div>
+
+      <!-- Phone -->
+      <div>
+        <ui5-label show-colon required> Phone</ui5-label>
+        <ui5-input
+          class="w-full"
+          [(ngModel)]="User.phone"
+          placeholder="Enter your Phone"
+          required
+          type="Number"
+        ></ui5-input>
+      </div>
+
+      <!-- Address (Full Width) -->
+      <div class="col-span-2">
+        <ui5-label show-colon required> Address</ui5-label>
+        <ui5-textarea
+          class="w-full"
+          [(ngModel)]="User.address"
+          placeholder="Enter your address"
+          required
+        ></ui5-textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section>
     <div class="row">
-      <div class="col-md-6 m-2">
+      <div class="col-6 m-2">
         <div class="d-flex align-items-center">
           <span> Active: </span>
           <ui5-switch checked (click)="toggleAction($event)"></ui5-switch>
@@ -41,8 +108,9 @@
         <ui5-input
           class="text"
           [(ngModel)]="User.email"
-          placeholder="Enter your Email Name"
+          placeholder="Enter your Email"
           required
+          type="Email"
         ></ui5-input>
 
         <ui5-label show-colon required> phone</ui5-label>
@@ -51,6 +119,7 @@
           [(ngModel)]="User.phone"
           placeholder="Enter your Phone"
           required
+          type="Number"
         ></ui5-input>
 
         <ui5-label show-colon required> address</ui5-label>
@@ -62,7 +131,7 @@
         ></ui5-textarea>
       </div>
     </div>
-  </section>
+  </section> -->
   <ui5-toolbar slot="footer">
     <ui5-toolbar-button
       design="Emphasized"
@@ -74,7 +143,7 @@
 
     <ui5-toolbar-button
       design="Transparent"
-      text="Cancel"
+      text="Close"
       (click)="closeDialog()"
     ></ui5-toolbar-button>
   </ui5-toolbar>
