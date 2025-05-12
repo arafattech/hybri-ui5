@@ -75,7 +75,7 @@ export class AddUserComponent implements OnInit {
     }
   }
   insertData() {
-    if (!this.User.address) {
+    if (!this.User.first_name || !this.User.address) {
       this.errorMassage = 'Please fill all the fields.';
       return;
     }
