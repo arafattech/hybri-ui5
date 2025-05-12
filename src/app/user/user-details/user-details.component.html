@@ -10,34 +10,44 @@
       ></ui5-switch>
     </div>
     <ng-container>
-      <ui5-label show-colon>Name</ui5-label>
-      <ui5-textarea
+      <ui5-label show-colon>First Name</ui5-label>
+      <ui5-input
         class="w-100"
-        value="{{ UserData.name }}"
+        value="{{ UserData.first_name }}"
         readonly
-      ></ui5-textarea>
+      ></ui5-input>
     </ng-container>
+
+    <ng-container>
+      <ui5-label show-colon>Last Name</ui5-label>
+      <ui5-input
+        class="w-100"
+        value="{{ UserData.last_name }}"
+        readonly
+      ></ui5-input>
+    </ng-container>
+
     <ng-container>
       <ui5-label show-colon>Gmail</ui5-label>
-      <ui5-textarea
+      <ui5-input
         class="w-100"
         value="{{ UserData.email }}"
         readonly
-      ></ui5-textarea>
+      ></ui5-input>
     </ng-container>
     <ng-container>
       <ui5-label show-colon>Phone</ui5-label>
-      <ui5-textarea
+      <ui5-input
         class="w-100"
         value="{{ UserData.phone }}"
         readonly
-      ></ui5-textarea>
+      ></ui5-input>
     </ng-container>
     <ng-container>
-      <ui5-label show-colon>Create Date</ui5-label>
+      <ui5-label show-colon>Address</ui5-label>
       <ui5-textarea
         class="w-100"
-        value="{{ UserData.created_at }}"
+        value="{{ UserData.address }}"
         readonly
       ></ui5-textarea>
     </ng-container>

@@ -11,10 +11,12 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
-  AngularEditorConfig,
-  AngularEditorModule,
-} from '@kolkov/angular-editor';
-import { LabelComponent, TextAreaComponent } from '@ui5/webcomponents-ngx';
+  InputComponent,
+  LabelComponent,
+  TextAreaComponent,
+  Ui5MainModule,
+} from '@ui5/webcomponents-ngx';
+import { AnalyticalTableComponent } from '../../components/analytical-table/react-table';
 import { ServiceService } from '../../services/service.service';
 import { User } from '../../shared/Model/user';
 
@@ -25,9 +27,11 @@ import { User } from '../../shared/Model/user';
     CommonModule,
     FormsModule,
     HttpClientModule,
-    AngularEditorModule,
     LabelComponent,
     TextAreaComponent,
+    AnalyticalTableComponent,
+    InputComponent,
+    Ui5MainModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './add-user.component.html',
@@ -43,24 +47,17 @@ export class AddUserComponent implements OnInit {
   isAddError: boolean = false;
 
   errorMassage: string = '';
-  name: string = '';
-  gmail: string = '';
-  phone: string = '';
+
+  // first_name: string = '';
+  // last_name: string = '';
+  // email: string = '';
+  // phone: string = '';
+  // address: string = '';
+
   htmlContent: string = '';
   placeholder: string = '';
   isActive: boolean = true;
-  Userlist: User = new User().deserialize({});
-
-  editorConfig: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '20rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-  };
+  User = new User().deserialize({});
 
   constructor(
     private commandService: ServiceService,
@@ -78,21 +75,24 @@ export class AddUserComponent implements OnInit {
     }
   }
   insertData() {
-    if (!this.name || !this.gmail) {
+    if (!this.User.first_name || !this.User.address) {
       this.errorMassage = 'Please fill all the fields.';
       return;
     }
 
-    const data = {
-      name: this.name,
-      email: this.gmail, // If gmail is user's email
-      phone: this.phone, // Make sure to bind this.phone from your form
-      is_active: this.isActive,
-    };
-    console.log('data', data);
+    // const data = {
+    //   first_name: this.User.first_name,
+    //   last_name: this.User.last_name,
+    //   email: this.User.email,
+    //   phone: this.User.phone,
+    //   address: this.User.address,
+
+    //   is_active: this.isActive,
+    // };
+    // console.log('data', data);
 
     this.loading = true;
-    this.commandService.post('Users', data).subscribe(
+    this.commandService.post('Users', this.User).subscribe(
       (response: any) => {
         console.log('response', response);
         this.loading = false;
@@ -113,18 +113,23 @@ export class AddUserComponent implements OnInit {
   }
   rersetForm() {
     this.errorMassage = '';
-    this.name = '';
-    this.gmail = '';
-    this.phone = '';
+    this.User.first_name = '';
+    this.User.last_name = '';
+    this.User.email = '';
+    this.User.phone = '';
+    this.User.address = '';
   }
   closeDialog() {
     this.isOpen = false;
     this.close.emit();
   }
- 
+
   resetForm() {
-    this.gmail = '';
-    this.name = '';
+    this.User.first_name = '';
+    this.User.last_name = '';
+    this.User.email = '';
+    this.User.phone = '';
+    this.User.address = '';
     this.htmlContent = '';
     this.isActive = true;
   }
