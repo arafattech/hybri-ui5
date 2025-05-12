@@ -16,6 +16,7 @@ import { ServiceService } from "../../services/service.service";
 import { User } from "../../shared/Model/user";
 import { AddUserComponent } from "../add-user/add-user.component";
 import { UserDetailsComponent } from "../user-details/user-details.component";
+import { UserUpdateComponent } from "../user-update/user-update.component";
 @Component({
   selector: "app-list-user",
   standalone: true,
@@ -25,6 +26,7 @@ import { UserDetailsComponent } from "../user-details/user-details.component";
     AnalyticalTableComponent,
     AddUserComponent,
     UserDetailsComponent,
+    UserUpdateComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: "./list-user.component.html",
@@ -84,8 +86,14 @@ export class ListUserComponent implements OnInit {
       },
 
       {
-        Header: "Name",
-        accessor: "name",
+        Header: "First Name",
+        accessor: "first_name",
+        autoResizable: true,
+        className: "custom-class-name",
+      },
+      {
+        Header: "last Name",
+        accessor: "last_name",
         autoResizable: true,
         className: "custom-class-name",
       },
@@ -98,6 +106,12 @@ export class ListUserComponent implements OnInit {
       {
         Header: "Phone",
         accessor: "phone",
+        autoResizable: true,
+        className: "custom-class-name",
+      },
+      {
+        Header: "address",
+        accessor: "updated_at",
         autoResizable: true,
         className: "custom-class-name",
       },
@@ -222,31 +236,4 @@ export class ListUserComponent implements OnInit {
     this.selectedUserId = null;
     this.selectedUserData = null;
   }
-
-  customData = [
-    {
-      name: "John Doe",
-      email: "study.shihab@gmail.com",
-      phone: "1234567890",
-      created_at: "2023-10-01",
-    },
-    {
-      name: "John Doe",
-      email: "study.shihab@gmail.com",
-      phone: "1234567890",
-      created_at: "2023-10-01",
-    },
-    {
-      name: "John Doe",
-      email: "study.shihab@gmail.com",
-      phone: "1234567890",
-      created_at: "2023-10-01",
-    },
-    {
-      name: "John Doe",
-      email: "study.shihab@gmail.com",
-      phone: "1234567890",
-      created_at: "2023-10-01",
-    },
-  ];
 }
