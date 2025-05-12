@@ -80,19 +80,19 @@ export class AddUserComponent implements OnInit {
       return;
     }
 
-    const data = {
-      first_name: this.User.first_name,
-      last_name: this.User.last_name,
-      email: this.User.email,
-      phone: this.User.phone,
-      address: this.User.address,
+    // const data = {
+    //   first_name: this.User.first_name,
+    //   last_name: this.User.last_name,
+    //   email: this.User.email,
+    //   phone: this.User.phone,
+    //   address: this.User.address,
 
-      is_active: this.isActive,
-    };
-    console.log('data', data);
+    //   is_active: this.isActive,
+    // };
+    // console.log('data', data);
 
     this.loading = true;
-    this.commandService.post('Users', data).subscribe(
+    this.commandService.post('Users', this.User).subscribe(
       (response: any) => {
         console.log('response', response);
         this.loading = false;
