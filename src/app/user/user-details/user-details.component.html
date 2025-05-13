@@ -1,7 +1,7 @@
-<ui5-dialog [open]="isOpen" header-text="Details" state="Information">
-  <div *ngIf="UserData">
-    <div class="d-flex align-items-center">
-      <ui5-label show-colon>Active</ui5-label>
+<ui5-dialog [open]="isOpen" header-text="User Details" state="Information">
+  <div *ngIf="UserData" class="p-4 space-y-4 bg-white rounded-md">
+    <div class="flex items-center justify-between">
+      <label class="font-medium text-gray-700">Active:</label>
       <ui5-switch
         accessible-name="graphical"
         design="Graphical"
@@ -9,50 +9,66 @@
         [checked]="UserData.is_active"
       ></ui5-switch>
     </div>
-    <ng-container>
-      <ui5-label show-colon>First Name</ui5-label>
-      <ui5-input
-        class="w-100"
-        value="{{ UserData.first_name }}"
-        readonly
-      ></ui5-input>
-    </ng-container>
 
-    <ng-container>
-      <ui5-label show-colon>Last Name</ui5-label>
-      <ui5-input
-        class="w-100"
-        value="{{ UserData.last_name }}"
-        readonly
-      ></ui5-input>
-    </ng-container>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-semibold text-gray-600 mb-1"
+          >First Name:</label
+        >
+        <ui5-input
+          class="w-full"
+          value="{{ UserData.first_name }}"
+          readonly
+        ></ui5-input>
+      </div>
 
-    <ng-container>
-      <ui5-label show-colon>Gmail</ui5-label>
-      <ui5-input
-        class="w-100"
-        value="{{ UserData.email }}"
-        readonly
-      ></ui5-input>
-    </ng-container>
-    <ng-container>
-      <ui5-label show-colon>Phone</ui5-label>
-      <ui5-input
-        class="w-100"
-        value="{{ UserData.phone }}"
-        readonly
-      ></ui5-input>
-    </ng-container>
-    <ng-container>
-      <ui5-label show-colon>Address</ui5-label>
+      <div>
+        <label class="block text-sm font-semibold text-gray-600 mb-1"
+          >Last Name:</label
+        >
+        <ui5-input
+          class="w-full"
+          value="{{ UserData.last_name }}"
+          readonly
+        ></ui5-input>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-gray-600 mb-1"
+          >Gmail:</label
+        >
+        <ui5-input
+          class="w-full"
+          value="{{ UserData.email }}"
+          readonly
+        ></ui5-input>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-gray-600 mb-1"
+          >Phone:</label
+        >
+        <ui5-input
+          class="w-full"
+          value="{{ UserData.phone }}"
+          readonly
+        ></ui5-input>
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold text-gray-600 mb-1"
+        >Address:</label
+      >
       <ui5-textarea
-        class="w-100"
+        class="w-full"
         value="{{ UserData.address }}"
         readonly
       ></ui5-textarea>
-    </ng-container>
+    </div>
   </div>
-  <div slot="footer" class="d-flex justify-content-end w-100 gap-2 pt-2">
-    <ui5-button (click)="closeDialog()">Close</ui5-button>
+
+  <div class="flex justify-end gap-2 p-4 bg-gray-50">
+    <ui5-button design="Emphasized" (click)="closeDialog()">Close</ui5-button>
   </div>
 </ui5-dialog>
