@@ -15,17 +15,22 @@
   <ui5-message-strip class="w-100 mt-3" design="Critical" *ngIf="errorMassage">
     <ui5-icon name="alert" slot="icon"></ui5-icon> {{ errorMassage }}
   </ui5-message-strip>
-  <section class="p-6 bg-gray-100 rounded-md">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+  <section class="p-6 bg-gray-100 rounded-md shadow-sm border border-gray-300">
+    <div class="grid gap-2">
       <!-- Active Switch -->
-      <div class="col-span-2 flex items-center space-x-2">
-        <!-- <span class="font-medium">Active:</span> -->
+      <div class="col-span-2 flex items-center gap-3">
+        <span class="font-semibold text-gray-700">Active:</span>
         <ui5-switch checked (click)="toggleAction($event)"></ui5-switch>
       </div>
 
       <!-- First Name -->
       <div>
-        <ui5-label show-colon required> First Name</ui5-label>
+        <ui5-label
+          show-colon
+          required class="block text-sm font-medium text-gray-700 mb-1">
+          First Name
+        </ui5-label>
         <ui5-input
           class="w-full"
           [(ngModel)]="User.first_name"
@@ -36,7 +41,13 @@
 
       <!-- Last Name -->
       <div>
-        <ui5-label show-colon required> Last Name</ui5-label>
+        <ui5-label
+          show-colon
+          required
+          class="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Last Name
+        </ui5-label>
         <ui5-input
           class="w-full"
           [(ngModel)]="User.last_name"
@@ -47,7 +58,13 @@
 
       <!-- Email -->
       <div>
-        <ui5-label show-colon required> Email</ui5-label>
+        <ui5-label
+          show-colon
+          required
+          class="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Email
+        </ui5-label>
         <ui5-input
           class="w-full"
           [(ngModel)]="User.email"
@@ -59,7 +76,13 @@
 
       <!-- Phone -->
       <div>
-        <ui5-label show-colon required> Phone</ui5-label>
+        <ui5-label
+          show-colon
+          required
+          class="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Phone
+        </ui5-label>
         <ui5-input
           class="w-full"
           [(ngModel)]="User.phone"
@@ -69,9 +92,15 @@
         ></ui5-input>
       </div>
 
-      <!-- Address (Full Width) -->
+      <!-- Address -->
       <div class="col-span-2">
-        <ui5-label show-colon required> Address</ui5-label>
+        <ui5-label
+          show-colon
+          required
+          class="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Address
+        </ui5-label>
         <ui5-textarea
           class="w-full"
           [(ngModel)]="User.address"
